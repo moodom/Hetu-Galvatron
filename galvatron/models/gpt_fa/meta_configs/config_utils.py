@@ -8,6 +8,9 @@ path_dict =  {
     'gpt-1.5b': 'gpt-1.5b.json',
     'gpt-2.7b': 'gpt-2.7b.json',
     'gpt-6.7b': 'gpt-6.7b.json',
+    'gpt-7.1b': 'gpt-7.1b.json',
+    'gpt-70b': 'gpt-70b.json',
+    'gpt-177b': 'gpt-177.json',
 }
 
 def config_from_meta(model_type) -> GPT2Config:

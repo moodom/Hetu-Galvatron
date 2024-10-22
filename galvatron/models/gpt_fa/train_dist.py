@@ -10,7 +10,7 @@ from galvatron.models.gpt_fa.GPTModel_hybrid_parallel import get_hybrid_parallel
 from galvatron.models.gpt_fa.dataloader import DataLoaderForGPT
 from galvatron.models.gpt_fa.meta_configs import config_from_meta, set_model_config, model_name, model_layer_configs
 from galvatron.models.gpt_fa.arguments import model_args
-
+from utils import num_floating_point_operations
 def train(args):
     local_rank = args.local_rank
     rank = torch.distributed.get_rank()
@@ -56,6 +56,8 @@ def train(args):
     profiler.profile_memory(0, "After creating model")
     if local_rank == 0:
         print("Start training...")
+    throughput=num_floating_point_operations(args,args.batch_size)
+    print("throughput",throughput)
     for ep in range(args.epochs):
         if not args.check_loss and not args.profile:
             trainloader = tqdm(trainloader)

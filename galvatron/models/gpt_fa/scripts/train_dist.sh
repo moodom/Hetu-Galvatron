@@ -1,9 +1,11 @@
-export NUM_NODES=2
+export NUM_NODES=1
 export NUM_GPUS_PER_NODE=8
-export MASTER_ADDR=$MASTER_ADDR
-export MASTER_PORT=$MASTER_PORT
+#export MASTER_ADDR=$MASTER_ADDR
+#export MASTER_PORT=$MASTER_PORT
+export MASTER_ADDR=localhost
+export MASTER_PORT=60007
 # export NCCL_SOCKET_IFNAME=ib0
-export NODE_RANK=$RANK
+export NODE_RANK=0
 
 LAUNCHER="python3 -m torch.distributed.launch"
 LAUNCHER="${LAUNCHER} --nnodes ${NUM_NODES}"
@@ -15,14 +17,14 @@ LAUNCHER="${LAUNCHER} --node_rank ${NODE_RANK}"
 TRAINER="train_dist.py"
 
 MODEL_ARGS="
-    --model_size gpt-6.7b \
+    --model_size gpt-7.1b \
     --set_model_config_manually 0 \
     --set_layernum_manually 0 \
-    --vocab_size 50257 \
-    --hidden_size 1600 \
-    --num_hidden_layers 48 \
+    --vocab_size 131072 \
+    --hidden_size 4096 \
+    --num_hidden_layers 30 \
     --num_attention_heads 32 \
-    --seq_length 1024"
+    --seq_length 4096"
 
 TRAIN_ARGS="
     --global_train_batch_size 8 \
@@ -35,8 +37,8 @@ TRAIN_ARGS="
     --save_profiled_memory 0"
 
 PARALLEL_ARGS="
-    --pp_deg 2 \
-    --global_tp_deg 2 \
+    --pp_deg 1 \
+    --global_tp_deg 1 \
     --global_tp_consec 1 \
     --sdp 1 \
     --global_checkpoint 0 \
@@ -46,6 +48,6 @@ PARALLEL_ARGS="
     --mixed_precision bf16 \
     --use-flash-attn \
     --initialize_on_meta 1 \
-    --galvatron_config_path ./configs/galvatron_config_gpt-6.7b_2nodes_8gpus_per_node_40GB_bf16_example.json"
+    --galvatron_config_path ./configs/galvatron_config_hidden4096_head32_seqlen4096_1nodes_8gpus_per_node_80GB_bf16.json"
 
 ${LAUNCHER} ${TRAINER} ${MODEL_ARGS} ${TRAIN_ARGS} ${PARALLEL_ARGS}

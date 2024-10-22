@@ -36,9 +36,17 @@ MODEL_ARGS_SIZE67B="
     --num_attention_heads 32 \
     --seq_length 2048"
 
+MODEL_ARGS_SIZE71B="
+    --model_size gpt-7.1b \
+    --set_model_config_manually 0 \
+    --vocab_size 131072 \
+    --hidden_size 4096 \
+    --num_attention_heads 32 \
+    --seq_length 4096"
+
 PROFILE_ARGS_BF16="
     --profile_type memory \
-    --profile_batch_size 8 \
+    --profile_batch_size 2 \
     --layernum_min 1 \
     --layernum_max 2 \
     --max_tp_deg 8 \
@@ -47,6 +55,7 @@ PROFILE_ARGS_BF16="
     --shape_order BSH \
     --use-flash-attn"
 
-python3 profiler.py ${MODEL_ARGS_SIZE15B} ${PROFILE_ARGS_BF16}
+# python3 profiler.py ${MODEL_ARGS_SIZE15B} ${PROFILE_ARGS_BF16}
 # python3 profile.py ${MODEL_ARGS_SIZE27B} ${PROFILE_ARGS_BF16}
 # python3 profile.py ${MODEL_ARGS_SIZE67B} ${PROFILE_ARGS_BF16}
+python3 profiler.py ${MODEL_ARGS_SIZE71B} ${PROFILE_ARGS}

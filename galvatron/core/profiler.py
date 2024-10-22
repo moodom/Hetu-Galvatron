@@ -410,6 +410,7 @@ class GalvatronProfiler():
             os.mkdir(hardware_config_dir)
         
         nccl_file = 'build/all_reduce_perf'
+        #nccl_file = 'all_reduce_perf'
         ARGS = self.prepare_nccltest_args(nccl_file)
         hardware_config_file = 'allreduce_bandwidth_%dnodes_%dgpus_per_node.json'%(args.num_nodes, args.num_gpus_per_node)
         hardware_config_path = os.path.join(hardware_config_dir, hardware_config_file)
@@ -427,6 +428,7 @@ class GalvatronProfiler():
             allreduce_size /= 2
         
         nccl_file = 'build/sendrecv_perf'
+        #nccl_file = 'sendrecv_perf'
         ARGS = self.prepare_nccltest_args(nccl_file)
         hardware_config_file = 'p2p_bandwidth_%dnodes_%dgpus_per_node.json'%(args.num_nodes, args.num_gpus_per_node)
         hardware_config_path = os.path.join(hardware_config_dir, hardware_config_file)
@@ -457,6 +459,7 @@ class GalvatronProfiler():
         return hostnames
     
     def prepare_nccltest_args(self, nccl_file='build/all_reduce_perf'):
+    #def prepare_nccltest_args(self, nccl_file='all_reduce_perf'):
         args = self.args
         nccl_file = os.path.join(self.path, args.nccl_test_dir, nccl_file)
         if not os.path.exists(nccl_file):

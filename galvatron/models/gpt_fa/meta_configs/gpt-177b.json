@@ -1,0 +1,8 @@
+{
+  "n_layer": 96,
+  "n_embd": 12288,
+  "n_head": 96,
+  "head_dim": 128,
+  "vocab_size": 131072,
+  "n_positions": 4096
+}

@@ -8,7 +8,6 @@ from galvatron.utils import set_seed, print_loss
 from galvatron.core import initialize_galvatron, GalvatronProfiler
 from galvatron.models.gpt_fa.meta_configs import config_from_meta, set_model_config
 from galvatron.models.gpt_fa.arguments import model_args
-
 def model_forward(model, input_ids):
     lm_logits = model(input_ids=input_ids).logits
     shift_logits = lm_logits[..., :-1, :].contiguous()

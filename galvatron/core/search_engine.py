@@ -220,7 +220,8 @@ class GalvatronSearchEngine():
         
         if max_bsz > -1 and max_bsz != optimal_bsz:
             re = results[max_bsz]
-            chunk = max(re,key=re.get)
+            #chunk = max(re,key=re.get)
+            chunk = max(re, key=lambda x: re[x]['throughput'])
             print(f"\nMax bsz = {max_bsz} Optimal chunk = {chunk} Max throughput={re[chunk]['throughput']} samples/s")
             print(f"pp_deg={re[chunk]['min_pp_deg']} Minimized timecost={re[chunk]['min_cost']} Memory remaining={re[chunk]['mem_remain']} Memory cost={re[chunk]['mem_cost']}")
             print_strategies(re[chunk]['min_res_list'])

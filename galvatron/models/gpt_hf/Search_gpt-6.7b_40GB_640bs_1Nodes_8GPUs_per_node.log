@@ -1,0 +1,932 @@
+Zarr-based strategies will not be registered because of missing packages
+Namespace(attention_dropout=0.1, bsz_scale=16, costmodel_coe=1.0, default_dp_type='zero2', disable_ckpt=0, disable_dp=0, disable_pp=0, disable_sdp=0, disable_tp=0, disable_tp_consec=0, embed_sdp=0, ffn_hidden_size=16384, hidden_dropout=0.1, hidden_size=4096, kv_channels=128, make_vocab_size_divisible_by=128, max_bsz=1024, max_pp_deg=8, max_predictions_per_seq=20, max_tp_deg=8, memory_constraint=40, min_bsz=16, mixed_precision='bf16', model_size='gpt-6.7b', num_attention_heads=32, num_gpus_per_node=8, num_hidden_layers=32, num_nodes=1, padded_vocab_size=50304, pipeline_type='pipedream_flush', recommend_min_bsz=0, search_space='full', seq_length=2048, set_layernum_manually=0, set_model_config_manually=0, settle_bsz=640, settle_chunk=-1, use_pipeline_costmodel=1, vocab_size=50257)
+GPT2Config {
+  "activation_function": "gelu_new",
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "head_dim": 128,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_embd": 4096,
+  "n_head": 32,
+  "n_inner": null,
+  "n_layer": 32,
+  "n_positions": 2048,
+  "reorder_and_upcast_attn": false,
+  "resid_pdrop": 0.1,
+  "scale_attn_by_inverse_layer_idx": false,
+  "scale_attn_weights": true,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "transformers_version": "4.43.3",
+  "use_cache": false,
+  "vocab_size": 50257
+}
+
+================================================================================
+--- Optimization Configs ----
+Memory constraint: 40 GB
+Pipeline Type: pipedream_flush
+Default DP Type: zero2
+Mixed Precision: bf16
+Search Space:
+1-1-8, 1-1-8f, 1-2-4*, 1-2-4f*, 1-2*-4, 1-2*-4f, 1-4-2*, 1-4-2f*, 1-4*-2, 1-4*-2f, 1-8-1, 2-1-4, 2-1-4f, 2-2-2*, 2-2-2f*, 2-2*-2, 2-2*-2f, 2-4-1, 4-1-2, 4-1-2f, 4-2-1, 8-1-1, 1-1-8-c, 1-1-8f-c, 1-2-4*-c, 1-2-4f*-c, 1-2*-4-c, 1-2*-4f-c, 1-4-2*-c, 1-4-2f*-c, 1-4*-2-c, 1-4*-2f-c, 1-8-1-c, 2-1-4-c, 2-1-4f-c, 2-2-2*-c, 2-2-2f*-c, 2-2*-2-c, 2-2*-2f-c, 2-4-1-c, 4-1-2-c, 4-1-2f-c, 4-2-1-c, 8-1-1-c
+================================================================================
+---- Environment Configs ----
+Allreduce Bandwidth (GB/s): {'8': 109.961, '4_0': 162.377, '4_1': 99.5265, '2_0': 154.192, '2_1': 76.0317, '1': inf}
+Allreduce Communication Coefficient (ms/MB): {'8': 0.009094133374560071, '4_0': 0.006158507670421303, '4_1': 0.010047575268898233, '2_0': 0.006485420774099823, '2_1': 0.013152408797909293, '1': 0}
+P2P Bandwidth (GB/s): {2: 157.766, 4: 105.956, 8: 47.9604}
+P2P Communication Coefficient (ms/MB): {2: 0.006338501324746777, 4: 0.009437879874664955, 8: 0.020850535024728733}
+Overlap coefficient: 1.4245128277076031
+================================================================================
+------- Model Configs -------
+Model Name: hidden4096_head32_seqlen2048
+Num layertype: 1
+Layer_num: [32]
+Hidden_size: [4096]
+Seq_len: [2048]
+================================================================================
+--- Model Computation Configs ---
+Forward computation time: [4.6243487675984705]
+================================================================================
+--- Model Memory Configs ---
+Parameter Memory Cost: [768.859375]
+Activation Memory Cost of Different TP degree (per bsz):
+[{'checkpoint': 16.0, 1: 272.28173828125, 2: 176.156494140625, 4: 128.0938720703125, 8: 104.14166259765625}]
+Other Memory Cost (pp = 1):
+{'model_states': 6540.0, 'activation': 920.88623046875}
+Other Memory Cost (pp > 1):
+{'first_stage': {'model_states': 3303.0, 'activation': 26.8785400390625}, 'last_stage': {'model_states': 3431.0, 'activation': 352.786865234375}}
+================================================================================
+Time Cost Model Args:
+[{'parameter_size': 768.859375, 'microbatch': False, 'optimal_chunk_func': <function optimal_chunk_func_default at 0x7f3f29fb8ee0>, 'sequence_length': 2048, 'hidden_size': 4096, 'forward_computation_time': 4.6243487675984705, 'bct_fct_coe': 2, 'extra_overhead': 0, 'comm_coe_dict': {'8': 0.009094133374560071, '4_0': 0.006158507670421303, '4_1': 0.010047575268898233, '2_0': 0.006485420774099823, '2_1': 0.013152408797909293, '1': 0}, 'dp_overlap_coe': 1.4245128277076031, 'bct_overlap_coe': 1.4245128277076031, 'p2p_comm_coe_dict': {2: 0.006338501324746777, 4: 0.009437879874664955, 8: 0.020850535024728733}, 'layer_num': 32, 'use_zero2_for_dp': 1, 'mixed_precision': True, 'costmodel_coe': 1.0}]
+================================================================================
+Memory Cost Model Args:
+[{'parameter_size': 768.859375, 'tp_activation_per_bsz_dict': {'checkpoint': 16.0, 1: 272.28173828125, 2: 176.156494140625, 4: 128.0938720703125, 8: 104.14166259765625}, 'other_memory_pp_off': {'model_states': 6540.0, 'activation': 920.88623046875}, 'other_memory_pp_on': {'first_stage': {'model_states': 3303.0, 'activation': 26.8785400390625}, 'last_stage': {'model_states': 3431.0, 'activation': 352.786865234375}}, 'microbatch': True, 'optimal_chunk_func': <function optimal_chunk_func_default at 0x7f3f29fb8ee0>, 'model_type': 'gpt', 'checkpoint': 1, 'use_zero2_for_dp': 1, 'use_zero3_for_embed': 0, 'mixed_precision': True, 'pipeline_type': 'pipedream_flush'}]
+================================================================================
+========================= Galvatron Search Engine Start Searching =========================
+----- [Searching Batch Sizes Info] Settle bsz: 640 -----
+----- [Searching Memory Info] Memory constraint: 40960 MB -----
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 1 ****
+Chunk_dict for bsz 640:  {1: 1.0, 2: 1.0, 4: 1.0, 8: 1.0}
+Mbsz_dict for bsz 640 {1: 80, 2: 160, 4: 320, 8: 640}
+bsz=640, pp_deg=1:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=2:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=4:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 2 ****
+Chunk_dict for bsz 640:  {1: 2.0, 2: 2.0, 4: 2.0, 8: 2.0}
+Mbsz_dict for bsz 640 {1: 40, 2: 80, 4: 160, 8: 320}
+bsz=640, pp_deg=1:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=2:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=4:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 3 ****
+Chunk_dict for bsz 640:  {1: 3.0, 2: 3.0, 4: 3.0, 8: 3.0}
+Mbsz_dict for bsz 640 {1: 27, 2: 54, 4: 107, 8: 214}
+bsz=640, pp_deg=1:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=2:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=4:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 4 ****
+Chunk_dict for bsz 640:  {1: 4.0, 2: 4.0, 4: 4.0, 8: 4.0}
+Mbsz_dict for bsz 640 {1: 20, 2: 40, 4: 80, 8: 160}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [-1, -1], memory cost: [inf, inf]
+bsz=640, pp_deg=4:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 5 ****
+Chunk_dict for bsz 640:  {1: 5.0, 2: 5.0, 4: 5.0, 8: 5.0}
+Mbsz_dict for bsz 640 {1: 16, 2: 32, 4: 64, 8: 128}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [-1, -1], memory cost: [inf, inf]
+bsz=640, pp_deg=4:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 6 ****
+Chunk_dict for bsz 640:  {1: 6.0, 2: 6.0, 4: 6.0, 8: 6.0}
+Mbsz_dict for bsz 640 {1: 14, 2: 27, 4: 54, 8: 107}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [-1, -1], memory cost: [inf, inf]
+bsz=640, pp_deg=4:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 7 ****
+Chunk_dict for bsz 640:  {1: 7.0, 2: 7.0, 4: 7.0, 8: 7.0}
+Mbsz_dict for bsz 640 {1: 12, 2: 23, 4: 46, 8: 92}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [-1, -1], memory cost: [inf, inf]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1], memory cost: [inf, inf, inf, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 8 ****
+Chunk_dict for bsz 640:  {1: 8.0, 2: 8.0, 4: 8.0, 8: 8.0}
+Mbsz_dict for bsz 640 {1: 10, 2: 20, 4: 40, 8: 80}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [-1, -1], memory cost: [inf, inf]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1], memory cost: [inf, inf, inf, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 9 ****
+Chunk_dict for bsz 640:  {1: 9.0, 2: 9.0, 4: 9.0, 8: 9.0}
+Mbsz_dict for bsz 640 {1: 9, 2: 18, 4: 36, 8: 72}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [-1, -1], memory cost: [inf, inf]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1], memory cost: [inf, inf, inf, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 10 ****
+Chunk_dict for bsz 640:  {1: 10.0, 2: 10.0, 4: 10.0, 8: 10.0}
+Mbsz_dict for bsz 640 {1: 8, 2: 16, 4: 32, 8: 64}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [-1, -1], memory cost: [inf, inf]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, 163, -1], memory cost: [inf, inf, 40797, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 11 ****
+Chunk_dict for bsz 640:  {2: 11.0, 4: 11.0, 8: 11.0}
+Mbsz_dict for bsz 640 {1: 8, 2: 15, 4: 30, 8: 59}
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: inf, memory remaining: [91, -1], memory cost: [40869, inf]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, 456, -1], memory cost: [inf, inf, 40504, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 12 ****
+Chunk_dict for bsz 640:  {1: 12.0, 2: 12.0, 4: 12.0, 8: 12.0}
+Mbsz_dict for bsz 640 {1: 7, 2: 14, 4: 27, 8: 54}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 51.90119611927882, memory remaining: [68, 271], memory cost: [40892, 40689]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, 113, 2041, -1], memory cost: [inf, 40847, 38919, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=2] Minimized timecost=51.90119611927882 Memory remaining=[68, 271] Memory cost=[40892, 40689]
+Max throughput=12.331122360439599 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c || 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 13 ****
+Chunk_dict for bsz 640:  {2: 13.0, 4: 13.0, 8: 13.0}
+Mbsz_dict for bsz 640 {1: 7, 2: 13, 4: 25, 8: 50}
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 51.47576962443407, memory remaining: [45, 3], memory cost: [40915, 40957]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, 88, 3097, -1], memory cost: [inf, 40872, 37863, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=2] Minimized timecost=51.47576962443407 Memory remaining=[45, 3] Memory cost=[40915, 40957]
+Max throughput=12.433034118176844 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c || 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 14 ****
+Chunk_dict for bsz 640:  {1: 14.0, 2: 14.0, 4: 14.0, 8: 14.0}
+Mbsz_dict for bsz 640 {1: 6, 2: 12, 4: 23, 8: 46}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: inf, memory remaining: [-1], memory cost: [inf]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 51.11401528280411, memory remaining: [22, 23], memory cost: [40938, 40937]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, 1210, 4154, -1], memory cost: [inf, 39750, 36806, inf]
+bsz=640, pp_deg=8:
+Best strategy: False 
+From history: False
+time cost: inf, memory remaining: -1, memory cost: inf
+[Optimal pp_deg=2] Minimized timecost=51.11401528280411 Memory remaining=[22, 23] Memory cost=[40938, 40937]
+Max throughput=12.521027676244996 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c || 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 15 ****
+Chunk_dict for bsz 640:  {2: 15.0, 4: 15.0, 8: 15.0}
+Mbsz_dict for bsz 640 {1: 6, 2: 11, 4: 22, 8: 43}
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 50.72324312897639, memory remaining: [286, 94], memory cost: [40674, 40866]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, 1866, 4682, -1], memory cost: [inf, 39094, 36278, inf]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1, -1, -1, 2228, -1], memory cost: [inf, inf, inf, inf, inf, inf, 38732, inf]
+[Optimal pp_deg=2] Minimized timecost=50.72324312897639 Memory remaining=[286, 94] Memory cost=[40674, 40866]
+Max throughput=12.617489744743681 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c || 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 16 ****
+Chunk_dict for bsz 640:  {1: 16.0, 2: 16.0, 4: 16.0, 8: 16.0}
+Mbsz_dict for bsz 640 {1: 5, 2: 10, 4: 20, 8: 40}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: 50.52474187756029, memory remaining: [63], memory cost: [40897]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 50.38674925625008, memory remaining: [263, 84], memory cost: [40697, 40876]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, 3179, 5739, 46], memory cost: [inf, 37781, 35221, 40914]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1, -1, 869, 3429, -1], memory cost: [inf, inf, inf, inf, inf, 40091, 37531, inf]
+[Optimal pp_deg=2] Minimized timecost=50.38674925625008 Memory remaining=[263, 84] Memory cost=[40697, 40876]
+Max throughput=12.701752136165306 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c || 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 17 ****
+Chunk_dict for bsz 640:  {4: 17.0, 8: 17.0}
+Mbsz_dict for bsz 640 {1: 5, 2: 10, 4: 19, 8: 38}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, 3835, 6267, 34], memory cost: [inf, 37125, 34693, 40926]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1, -1, 1798, 4230, -1], memory cost: [inf, inf, inf, inf, inf, 39162, 36730, inf]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 18 ****
+Chunk_dict for bsz 640:  {2: 18.0, 4: 18.0, 8: 18.0}
+Mbsz_dict for bsz 640 {1: 5, 2: 9, 4: 18, 8: 36}
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 49.99222428048537, memory remaining: [219, 64], memory cost: [40741, 40896]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: inf, memory remaining: [-1, 4491, 6795, 596], memory cost: [inf, 36469, 34165, 40364]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1, 422, 2726, 5030, -1], memory cost: [inf, inf, inf, inf, 40538, 38234, 35930, inf]
+[Optimal pp_deg=2] Minimized timecost=49.99222428048537 Memory remaining=[219, 64] Memory cost=[40741, 40896]
+Max throughput=12.801990893808384 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4 || 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4, 2-1-4
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 19 ****
+Chunk_dict for bsz 640:  {4: 19.0, 8: 19.0}
+Mbsz_dict for bsz 640 {1: 5, 2: 9, 4: 17, 8: 34}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 55.23733762472995, memory remaining: [27, 5148, 139, 1350], memory cost: [40933, 35812, 40821, 39610]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, -1, 1479, 3655, 5831, -1], memory cost: [inf, inf, inf, inf, 39481, 37305, 35129, inf]
+[Optimal pp_deg=4] Minimized timecost=55.23733762472995 Memory remaining=[27, 5148, 139, 1350] Memory cost=[40933, 35812, 40821, 39610]
+Max throughput=11.586365808359846 samples/s
+4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c || 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 20 ****
+Chunk_dict for bsz 640:  {1: 20.0, 2: 20.0, 4: 20.0, 8: 20.0}
+Mbsz_dict for bsz 640 {1: 4, 2: 8, 4: 16, 8: 32}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: 50.19946437241649, memory remaining: [82], memory cost: [40878]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 49.50422222077131, memory remaining: [135, 48], memory cost: [40825, 40912]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 54.64278888323162, memory remaining: [154, 5804, 33, 2103], memory cost: [40806, 35156, 40927, 38857]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, 487, 2535, 4583, 6631, -1], memory cost: [inf, inf, inf, 40473, 38425, 36377, 34329, inf]
+[Optimal pp_deg=2] Minimized timecost=49.50422222077131 Memory remaining=[135, 48] Memory cost=[40825, 40912]
+Max throughput=12.928190188421231 samples/s
+2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c || 2-2-2f*-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f, 2-1-4f, 2-1-4f
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 21 ****
+Chunk_dict for bsz 640:  {8: 21.0}
+Mbsz_dict for bsz 640 {1: 4, 2: 8, 4: 16, 8: 31}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, 1080, 3064, 5048, 7032, -1], memory cost: [inf, inf, inf, 39880, 37896, 35912, 33928, inf]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 22 ****
+Chunk_dict for bsz 640:  {4: 22.0, 8: 22.0}
+Mbsz_dict for bsz 640 {1: 4, 2: 8, 4: 15, 8: 30}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 53.937597737265136, memory remaining: [855, 6460, 692, 158], memory cost: [40105, 34500, 40268, 40802]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, -1, 1672, 3592, 5512, 7432, -1], memory cost: [inf, inf, inf, 39288, 37368, 35448, 33528, inf]
+[Optimal pp_deg=4] Minimized timecost=53.937597737265136 Memory remaining=[855, 6460, 692, 158] Memory cost=[40105, 34500, 40268, 40802]
+Max throughput=11.865563667063878 samples/s
+4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2 || 4-1-2-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2f, 4-1-2-c
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 23 ****
+Chunk_dict for bsz 640:  {2: 23.0, 4: 23.0, 8: 23.0}
+Mbsz_dict for bsz 640 {1: 4, 2: 7, 4: 14, 8: 28}
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 48.92190369524101, memory remaining: [51, 4], memory cost: [40909, 40956]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 53.65627377321301, memory remaining: [1747, 7117, 1734, 21], memory cost: [39213, 33843, 39226, 40939]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, 1065, 2857, 4649, 6441, 8233, -1], memory cost: [inf, inf, 39895, 38103, 36311, 34519, 32727, inf]
+[Optimal pp_deg=2] Minimized timecost=48.92190369524101 Memory remaining=[51, 4] Memory cost=[40909, 40956]
+Max throughput=13.082074728466822 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4 || 2-2-2f*-c, 2-2-2f*-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 24 ****
+Chunk_dict for bsz 640:  {8: 24.0}
+Mbsz_dict for bsz 640 {1: 4, 2: 7, 4: 14, 8: 27}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, -1, 1721, 3449, 5177, 6905, 8633, -1], memory cost: [inf, inf, 39239, 37511, 35783, 34055, 32327, inf]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 25 ****
+Chunk_dict for bsz 640:  {4: 25.0, 8: 25.0}
+Mbsz_dict for bsz 640 {1: 4, 2: 7, 4: 13, 8: 26}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 53.161143596481274, memory remaining: [2639, 7773, 2774, 1031], memory cost: [38321, 33187, 38186, 39929]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 713, 2377, 4041, 5705, 7369, 9033, -1], memory cost: [inf, 40247, 38583, 36919, 35255, 33591, 31927, inf]
+[Optimal pp_deg=4] Minimized timecost=53.161143596481274 Memory remaining=[2639, 7773, 2774, 1031] Memory cost=[38321, 33187, 38186, 39929]
+Max throughput=12.038868178944922 samples/s
+4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 26 ****
+Chunk_dict for bsz 640:  {8: 26.0}
+Mbsz_dict for bsz 640 {1: 4, 2: 7, 4: 13, 8: 25}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 1433, 3033, 4633, 6233, 7833, 9433, -1], memory cost: [inf, 39527, 37927, 36327, 34727, 33127, 31527, inf]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 27 ****
+Chunk_dict for bsz 640:  {1: 27.0, 2: 27.0, 4: 27.0, 8: 27.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 6, 4: 12, 8: 24}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: 49.412957017563066, memory remaining: [8], memory cost: [40952]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 48.375596873963985, memory remaining: [48, 208], memory cost: [40912, 40752]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 52.73936603852461, memory remaining: [3531, 158, 3815, 111], memory cost: [37429, 40802, 37145, 40849]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 2154, 3690, 5226, 6762, 8298, 9834, -1], memory cost: [inf, 38806, 37270, 35734, 34198, 32662, 31126, inf]
+[Optimal pp_deg=2] Minimized timecost=48.375596873963985 Memory remaining=[48, 208] Memory cost=[40912, 40752]
+Max throughput=13.229810924450868 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4, 2-1-4 || 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 28 ****
+Chunk_dict for bsz 640:  {8: 28.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 6, 4: 12, 8: 23}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 2874, 4346, 5818, 7290, 8762, 10234, 153], memory cost: [inf, 38086, 36614, 35142, 33670, 32198, 30726, 40807]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 30 ****
+Chunk_dict for bsz 640:  {4: 30.0, 8: 30.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 6, 4: 11, 8: 22}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 52.212144091078784, memory remaining: [4422, 628, 172, 230], memory cost: [36538, 40332, 40788, 40730]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 3594, 5002, 6410, 7818, 9226, 10634, 841], memory cost: [inf, 37366, 35958, 34550, 33142, 31734, 30326, 40119]
+[Optimal pp_deg=4] Minimized timecost=52.212144091078784 Memory remaining=[4422, 628, 172, 230] Memory cost=[36538, 40332, 40788, 40730]
+Max throughput=12.257684704224845 samples/s
+4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2 || 4-1-2-c, 4-1-2f-c, 4-1-2f-c, 4-1-2, 4-1-2f-c, 4-1-2f-c, 4-1-2f-c, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 31 ****
+Chunk_dict for bsz 640:  {8: 31.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 6, 4: 11, 8: 21}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 4315, 5659, 7003, 8347, 9691, 271, 1531], memory cost: [inf, 36645, 35301, 33957, 32613, 31269, 40689, 39429]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 32 ****
+Chunk_dict for bsz 640:  {2: 32.0, 4: 32.0, 8: 32.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 5, 4: 10, 8: 20}
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 47.666705423990194, memory remaining: [188, 39], memory cost: [40772, 40921]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 51.915581745640495, memory remaining: [5315, 2054, 772, 82], memory cost: [35645, 38906, 40188, 40878]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 5035, 6315, 7595, 8875, 10155, 1184, 2220], memory cost: [inf, 35925, 34645, 33365, 32085, 30805, 39776, 38740]
+[Optimal pp_deg=2] Minimized timecost=47.666705423990194 Memory remaining=[188, 39] Memory cost=[40772, 40921]
+Max throughput=13.426562509560272 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4 || 2-2-2f*-c, 2-2-2f*-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 34 ****
+Chunk_dict for bsz 640:  {8: 34.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 5, 4: 10, 8: 19}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 5755, 6971, 8187, 9403, 10619, 2096, 2909], memory cost: [inf, 35205, 33989, 32773, 31557, 30341, 38864, 38051]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 36 ****
+Chunk_dict for bsz 640:  {4: 36.0, 8: 36.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 5, 4: 9, 8: 18}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 51.421311169910034, memory remaining: [6206, 3479, 2324, 456], memory cost: [34754, 37481, 38636, 40504]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 6475, 7627, 8779, 9931, 11083, 3009, 3598], memory cost: [inf, 34485, 33333, 32181, 31029, 29877, 37951, 37362]
+[Optimal pp_deg=4] Minimized timecost=51.421311169910034 Memory remaining=[6206, 3479, 2324, 456] Memory cost=[34754, 37481, 38636, 40504]
+Max throughput=12.446201495820779 samples/s
+4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2, 4-1-2
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 38 ****
+Chunk_dict for bsz 640:  {8: 38.0}
+Mbsz_dict for bsz 640 {1: 3, 2: 5, 4: 9, 8: 17}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: inf, memory remaining: [-1, 7196, 8284, 9372, 10460, 11548, 3922, 4287], memory cost: [inf, 33764, 32676, 31588, 30500, 29412, 37038, 36673]
+[Optimal pp_deg=-1] Minimized timecost=inf Memory remaining=-1 Memory cost=-1
+Max throughput=0.0 samples/s
+None
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 40 ****
+Chunk_dict for bsz 640:  {1: 40.0, 2: 40.0, 4: 40.0, 8: 40.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 4, 4: 8, 8: 16}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: 47.48072334675063, memory remaining: [11], memory cost: [40949]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 46.690926322444135, memory remaining: [2, 7], memory cost: [40958, 40953]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 50.08736548939456, memory remaining: [43, 91, 160, 118], memory cost: [40917, 40869, 40800, 40842]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 56.14191164657987, memory remaining: [141, 7916, 8940, 9964, 10988, 12012, 4835, 876], memory cost: [40819, 33044, 32020, 30996, 29972, 28948, 36125, 40084]
+[Optimal pp_deg=2] Minimized timecost=46.690926322444135 Memory remaining=[2, 7] Memory cost=[40958, 40953]
+Max throughput=13.707160050331977 samples/s
+2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4-c, 2-1-4f-c, 2-1-4f-c, 2-1-4f-c, 2-1-4, 2-1-4, 2-1-4 || 2-2-2*-c, 2-2-2*-c, 2-2-2f*-c, 2-2-2f*-c, 2-2-2f*-c, 2-2-2f*-c, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 43 ****
+Chunk_dict for bsz 640:  {8: 43.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 4, 4: 8, 8: 15}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 55.55854690408696, memory remaining: [1140, 8636, 9596, 10556, 11516, 943, 5748, 1821], memory cost: [39820, 32324, 31364, 30404, 29444, 40017, 35212, 39139]
+[Optimal pp_deg=8] Minimized timecost=55.55854690408696 Memory remaining=[1140, 8636, 9596, 10556, 11516, 943, 5748, 1821] Memory cost=[39820, 32324, 31364, 30404, 29444, 40017, 35212, 39139]
+Max throughput=11.51937974736558 samples/s
+8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 46 ****
+Chunk_dict for bsz 640:  {4: 46.0, 8: 46.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 4, 4: 7, 8: 14}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 48.98541041481477, memory remaining: [815, 949, 1843, 103], memory cost: [40145, 40011, 39117, 40857]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 55.051273214962684, memory remaining: [2140, 9357, 10253, 11149, 12045, 2177, 6661, 2767], memory cost: [38820, 31603, 30707, 29811, 28915, 38783, 34299, 38193]
+[Optimal pp_deg=4] Minimized timecost=48.98541041481477 Memory remaining=[815, 949, 1843, 103] Memory cost=[40145, 40011, 39117, 40857]
+Max throughput=13.065114583717834 samples/s
+4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2, 4-1-2 || 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2f, 4-1-2-c, 4-1-2-c, 4-1-2-c
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 50 ****
+Chunk_dict for bsz 640:  {8: 50.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 4, 4: 7, 8: 13}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 54.46959938476686, memory remaining: [3139, 10077, 10909, 11741, 12573, 3410, 911, 380], memory cost: [37821, 30883, 30051, 29219, 28387, 37550, 40049, 40580]
+[Optimal pp_deg=8] Minimized timecost=54.46959938476686 Memory remaining=[3139, 10077, 10909, 11741, 12573, 3410, 911, 380] Memory cost=[37821, 30883, 30051, 29219, 28387, 37550, 40049, 40580]
+Max throughput=11.749673344926132 samples/s
+8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 54 ****
+Chunk_dict for bsz 640:  {2: 54.0, 4: 54.0, 8: 54.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 3, 4: 6, 8: 12}
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 45.956122858778315, memory remaining: [12, 23], memory cost: [40948, 40937]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, False] 
+From history: [False, False, False, False]
+time cost: 48.54125405090663, memory remaining: [2732, 56, 835, 21], memory cost: [38228, 40904, 40125, 40939]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 53.97409945534077, memory remaining: [4138, 10797, 11565, 12333, 800, 4643, 2335, 1582], memory cost: [36822, 30163, 29395, 28627, 40160, 36317, 38625, 39378]
+[Optimal pp_deg=2] Minimized timecost=45.956122858778315 Memory remaining=[12, 23] Memory cost=[40948, 40937]
+Max throughput=13.926327117861952 samples/s
+2-2-2*-c, 2-2-2*-c, 2-2-2*-c, 2-2-2*-c, 2-2-2*-c, 2-2-2*-c, 2-2-2*-c, 2-2-2*-c, 2-2-2f*-c, 2-2-2f*-c, 2-1-4, 2-1-4, 2-1-4, 2-1-4, 2-1-4, 2-1-4 || 2-2-2f*-c, 2-2-2f*-c, 2-2-2f*, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f, 2-1-4f
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 59 ****
+Chunk_dict for bsz 640:  {8: 59.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 3, 4: 6, 8: 11}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 53.449205462304676, memory remaining: [5137, 11517, 12221, 12925, 2353, 5876, 3761, 2783], memory cost: [35823, 29443, 28739, 28035, 38607, 35084, 37199, 38177]
+[Optimal pp_deg=8] Minimized timecost=53.449205462304676 Memory remaining=[5137, 11517, 12221, 12925, 2353, 5876, 3761, 2783] Memory cost=[35823, 29443, 28739, 28035, 38607, 35084, 37199, 38177]
+Max throughput=11.973985290601995 samples/s
+8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 64 ****
+Chunk_dict for bsz 640:  {4: 64.0, 8: 64.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 3, 4: 5, 8: 10}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, True] 
+From history: [False, False, False, False]
+time cost: 47.10119620916969, memory remaining: [96, 1491, 853, 138], memory cost: [40864, 39469, 40107, 40822]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, False] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 53.006326155680455, memory remaining: [6137, 12238, 12878, 704, 3907, 7110, 60, 1422], memory cost: [34823, 28722, 28082, 40256, 37053, 33850, 40900, 39538]
+[Optimal pp_deg=4] Minimized timecost=47.10119620916969 Memory remaining=[96, 1491, 853, 138] Memory cost=[40864, 39469, 40107, 40822]
+Max throughput=13.587765311901025 samples/s
+4-1-2f-c, 4-1-2f-c, 4-1-2f, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2 || 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 72 ****
+Chunk_dict for bsz 640:  {8: 72.0}
+Mbsz_dict for bsz 640 {1: 2, 2: 3, 4: 5, 8: 9}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 52.42566217588428, memory remaining: [7136, 12958, 13534, 2577, 5460, 1422, 1999, 576], memory cost: [33824, 28002, 27426, 38383, 35500, 39538, 38961, 40384]
+[Optimal pp_deg=8] Minimized timecost=52.42566217588428 Memory remaining=[7136, 12958, 13534, 2577, 5460, 1422, 1999, 576] Memory cost=[33824, 28002, 27426, 38383, 35500, 39538, 38961, 40384]
+Max throughput=12.207761875335912 samples/s
+8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 80 ****
+Chunk_dict for bsz 640:  {1: 80.0, 2: 80.0, 4: 80.0, 8: 80.0}
+Mbsz_dict for bsz 640 {1: 1, 2: 2, 4: 4, 8: 8}
+bsz=640, pp_deg=1:
+Best strategy: [False] 
+From history: [False]
+time cost: 42.247228022055495, memory remaining: [0], memory cost: [40960]
+bsz=640, pp_deg=2:
+Best strategy: [False, False] 
+From history: [False, False]
+time cost: 42.69188835146125, memory remaining: [10, 222], memory cost: [40950, 40738]
+bsz=640, pp_deg=4:
+Best strategy: [False, False, False, True] 
+From history: [False, False, False, False]
+time cost: 46.17595305501058, memory remaining: [2465, 1379, 32, 2939], memory cost: [38495, 39581, 40928, 38021]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, False, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 51.96113099204732, memory remaining: [8135, 13678, 1889, 4451, 7013, 3424, 3938, 2288], memory cost: [32825, 27282, 39071, 36509, 33947, 37536, 37022, 38672]
+[Optimal pp_deg=1] Minimized timecost=42.247228022055495 Memory remaining=[0] Memory cost=[40960]
+Max throughput=15.148922898938672 samples/s
+1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2*-4f, 1-2-4*-c, 1-2-4*
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 92 ****
+Chunk_dict for bsz 640:  {8: 92.0}
+Mbsz_dict for bsz 640 {2: 2, 4: 4, 8: 7}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, True, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 51.41581177623873, memory remaining: [9135, 1841, 4083, 6325, 1391, 45, 2287, 4002], memory cost: [31825, 39119, 36877, 34635, 39569, 40915, 38673, 36958]
+[Optimal pp_deg=8] Minimized timecost=51.41581177623873 Memory remaining=[9135, 1841, 4083, 6325, 1391, 45, 2287, 4002] Memory cost=[31825, 39119, 36877, 34635, 39569, 40915, 38673, 36958]
+Max throughput=12.447532731473261 samples/s
+8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1-c || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 107 ****
+Chunk_dict for bsz 640:  {4: 107.0, 8: 107.0}
+Mbsz_dict for bsz 640 {2: 2, 4: 3, 8: 6}
+bsz=640, pp_deg=4:
+Best strategy: [False, False, True, True] 
+From history: [False, False, False, False]
+time cost: 43.82475415176635, memory remaining: [21, 500, 2424, 5749], memory cost: [40939, 40460, 38536, 35211]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, False, True, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 50.90616764931481, memory remaining: [10134, 4355, 6277, 511, 3969, 2816, 4739, 5715], memory cost: [30826, 36605, 34683, 40449, 36991, 38144, 36221, 35245]
+[Optimal pp_deg=4] Minimized timecost=43.82475415176635 Memory remaining=[21, 500, 2424, 5749] Memory cost=[40939, 40460, 38536, 35211]
+Max throughput=14.60361871703061 samples/s
+4-1-2f-c, 4-1-2f, 4-1-2f, 4-1-2f, 4-1-2-c, 4-1-2-c, 4-1-2-c, 4-1-2 || 4-1-2-c, 4-1-2-c, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2 || 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2 || 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2, 4-1-2
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 128 ****
+Chunk_dict for bsz 640:  {8: 128.0}
+Mbsz_dict for bsz 640 {2: 2, 4: 3, 8: 5}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, False, True, True, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 47.27190282846865, memory remaining: [882, 6869, 783, 3665, 1421, 1743, 7187, 7432], memory cost: [40078, 34091, 40177, 37295, 39539, 39217, 33773, 33528]
+[Optimal pp_deg=8] Minimized timecost=47.27190282846865 Memory remaining=[882, 6869, 783, 3665, 1421, 1743, 7187, 7432] Memory cost=[40078, 34091, 40177, 37295, 39539, 39217, 33773, 33528]
+Max throughput=13.538697655609742 samples/s
+8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1-c, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 160 ****
+Chunk_dict for bsz 640:  {2: 160.0, 4: 160.0, 8: 160.0}
+Mbsz_dict for bsz 640 {2: 1, 4: 2, 8: 4}
+bsz=640, pp_deg=2:
+Best strategy: [True, True] 
+From history: [False, False]
+time cost: 37.957875308594936, memory remaining: [3245, 8538], memory cost: [37715, 32422]
+bsz=640, pp_deg=4:
+Best strategy: [False, True, True, True] 
+From history: [False, False, False, False]
+time cost: 39.31160741095852, memory remaining: [149, 2696, 7048, 8550], memory cost: [40811, 38264, 33912, 32410]
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, False, True, True, True, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 46.781675688025274, memory remaining: [3931, 2207, 4513, 1693, 927, 5283, 9639, 9145], memory cost: [37029, 38753, 36447, 39267, 40033, 35677, 31321, 31815]
+[Optimal pp_deg=2] Minimized timecost=37.957875308594936 Memory remaining=[3245, 8538] Memory cost=[37715, 32422]
+Max throughput=16.86079620623767 samples/s
+2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2* || 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 214 ****
+Chunk_dict for bsz 640:  {8: 214.0}
+Mbsz_dict for bsz 640 {4: 2, 8: 3}
+bsz=640, pp_deg=8:
+Best strategy: [False, False, False, True, True, True, True, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 43.23047497762855, memory remaining: [830, 1134, 3633, 2288, 5556, 8824, 12088, 10858], memory cost: [40130, 39826, 37327, 38672, 35404, 32136, 28872, 30102]
+[Optimal pp_deg=8] Minimized timecost=43.23047497762855 Memory remaining=[830, 1134, 3633, 2288, 5556, 8824, 12088, 10858] Memory cost=[40130, 39826, 37327, 38672, 35404, 32136, 28872, 30102]
+Max throughput=14.804371229582724 samples/s
+8-1-1-c, 8-1-1-c, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1, 8-1-1, 8-1-1 || 8-1-1-c, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1
+bsz=640 {1: [32], 2: [16, 16], 4: [8, 8, 8, 8], 8: [4, 4, 4, 4, 4, 4, 4, 4]}
+****Searching with bsz= 640  chunk= 320 ****
+Chunk_dict for bsz 640:  {4: 320.0, 8: 320.0}
+Mbsz_dict for bsz 640 {4: 1, 8: 2}
+bsz=640, pp_deg=4:
+Best strategy: [True, True, True, True] 
+From history: [False, False, False, False]
+time cost: 40.393237013918515, memory remaining: [5716, 10712, 13528, 13839], memory cost: [35244, 30248, 27432, 27121]
+bsz=640, pp_deg=8:
+/usr/local/lib/python3.8/dist-packages/transformers/utils/hub.py:127: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Best strategy: [False, True, True, True, True, True, True, True] 
+From history: [False, False, False, False, False, False, False, False]
+time cost: 39.752573219119725, memory remaining: [1831, 3648, 5828, 8004, 10184, 12360, 14540, 12571], memory cost: [39129, 37312, 35132, 32956, 30776, 28600, 26420, 28389]
+[Optimal pp_deg=8] Minimized timecost=39.752573219119725 Memory remaining=[1831, 3648, 5828, 8004, 10184, 12360, 14540, 12571] Memory cost=[39129, 37312, 35132, 32956, 30776, 28600, 26420, 28389]
+Max throughput=16.099586722908803 samples/s
+8-1-1-c, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1 || 8-1-1, 8-1-1, 8-1-1, 8-1-1
+
+Final results of max memory 40960 MB:
+Optimal bsz = 640 Optimal chunk = 160 Max throughput=16.86079620623767 samples/s
+pp_deg=2 Minimized timecost=37.957875308594936 Memory remaining=[3245, 8538] Memory cost=[37715, 32422]
+2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2* || 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*, 2-2-2*
+Already written optimized parallelism config into galvatron config file /galvatron/galvatron/models/gpt_hf/configs/galvatron_config_hidden4096_head32_seqlen2048_1nodes_8gpus_per_node_40GB_bf16_bsz640.json!
+-----------------------------------------
+========================= Galvatron Search Engine End Searching =========================

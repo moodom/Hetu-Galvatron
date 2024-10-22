@@ -94,12 +94,12 @@ def profile(args):
                 if local_rank == 0:
                     print('Average communication time (ms):', comm_time)
                 comm_time_list.append(comm_time)
-                # print('rank %d, comm_time %.3f'%(rank, comm_time))
+                print('rank %d, comm_time %.3f'%(rank, comm_time))
             if compute_time is not None:
                 if local_rank == 0:
                     print('Average computation time (ms):', compute_time)
                 compute_time_list.append(compute_time)
-                # print('rank %d, compute_time %.3f'%(rank, compute_time))
+                print('rank %d, compute_time %.3f'%(rank, compute_time))
 
     def profile_op(sync_stream, warmup_func, profile_func):
         with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CUDA],
